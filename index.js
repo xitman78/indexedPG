@@ -1,28 +1,3 @@
-// let proOne = new Promise( (resolve, reject) => {
-//   console.log('In promise');
-//   resolve(1);
-//   // reject(1);
-// });
-//
-// proOne.then(r => {
-//   console.log('Promise returned ', r);
-//   return 2;
-// })
-// .then(r => {
-//   console.log('Second then', r);
-//   return 3;
-// })
-// .then(r => {
-//   console.log('Third then ', r);
-// })
-// .catch(e => {
-//   console.log('Promise rejected', e);
-//   return -1;
-// })
-// .catch(e => {
-//   console.log('Second catch', e);
-//   return -2;
-// });
 
 class dbCtrl {
   constructor() {
@@ -35,7 +10,7 @@ class dbCtrl {
         let req = window.indexedDB.open('myfirst.db', 4);
 
         req.onsuccess = event => {
-          console.log('onsuccess', event);
+          // console.log('onsuccess', event);
           this.db = event.target.result;
           resolve(true);
         };
@@ -46,11 +21,10 @@ class dbCtrl {
         };
 
         req.onupgradeneeded = event => {
-          console.log('onupgradeneeded', event);
+          // console.log('onupgradeneeded', event);
           this.db = event.target.result;
           let tblReq = this.db.createObjectStore('Barge2', {keyPath: 'id', autoIncrement: true});
           tblReq.createIndex('name','name', {unique: false});
-          console.log('tblReq', tblReq);
           resolve(true);
         }
       }
@@ -67,7 +41,7 @@ class dbCtrl {
       let os = trans.objectStore('Barge2');
       let req = os.add(barge);
       req.onsuccess = event => {
-        console.log('Success', event.target.result);
+        // console.log('Success', event.target.result);
         resolve(event.target.result);
       };
       req.onerror = event => {
@@ -115,13 +89,11 @@ class viewCtrl {
   submitForm(e) {
     e.preventDefault();
     let name = this.bargeNameInput.value;
-    console.log(`Name is ${name}`);
     this.bargeNameInput.value = '';
 
     this.db.insertBarge({ name }).then(r => {
       this.getAll();
     });
-
   }
 
   focus() {
@@ -130,7 +102,7 @@ class viewCtrl {
 
   getAll() {
     this.db.fetchAll().then( r => {
-      console.log('All records', r);
+      // console.log('All records', r);
       let text = r.reduce((p,c) => {
         return p + '\n' + c.name;
       },'');
@@ -140,7 +112,6 @@ class viewCtrl {
       console.log('Fetch All Error', e);
     });
   }
-
 }
 
 var ctrl = null;
