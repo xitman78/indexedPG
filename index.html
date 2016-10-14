@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Promise IndexedDB Playground</title>
+    <script type="text/javascript" src="index.js">
+    </script>
+  </head>
+  <body>
+    IndexedDB:<br>
+    <form onsubmit="ctrl.submitForm(event)">
+      <input type="text" value="" name="bargeName" id="bargeNameId" /><br>
+      <button type="submit">Add record</button>
+      <button type="button" onclick="ctrl.getAll()">Get All</button>
+    </form>
+    <pre id="container">
+    </pre>
+  </body>
+</html>
