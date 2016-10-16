@@ -112,6 +112,24 @@ class viewCtrl {
       console.log('Fetch All Error', e);
     });
   }
+
+  getJson() {
+    /*let headers = new Headers();
+    headers.set('Content-Type', 'application/json');*/
+    let myRequest = new Request('barges.json', { /*headers,*/ method: 'GET', mode: 'cors', cache: 'no-cache' });
+
+    fetch(myRequest)
+      .then(r => {
+      console.log('Fetch results', r.body);
+      return r.json();
+    })
+    .then(js => {
+      console.log('Got JSON', js);
+    })
+   .catch(e => {
+     console.log('Fetch error - ', e);
+    });
+  }
 }
 
 var ctrl = null;
