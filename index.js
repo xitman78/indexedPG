@@ -51,6 +51,22 @@ class dbCtrl {
     });
   }
 
+  removeBarge(bargeId) {
+    return new Promise((resolve, reject) => {
+      let trans = this.db.transaction(['Barge2'], 'readwrite');
+      let os = trans.objectStore('Barge2');
+      let req = os.delete(bargeId);
+      req.onsuccess = event => {
+        console.log('Success removing record', event.target.result);
+        resolve(event.target.result);
+      };
+      req.onerror = event => {
+        console.log('Error removing record', event);
+        reject(event);
+      };
+    });
+  }
+
   fetchAll() {
     return new Promise((resolve, reject) => {
       let result = [];
@@ -110,6 +126,15 @@ class viewCtrl {
     })
     .catch(e => {
       console.log('Fetch All Error', e);
+    });
+  }
+
+  removeBarge() {
+    this.db.removeBarge(1).then(r => {
+      console.log('Barge was removed successfully');
+    })
+  .catch(e => {
+    console.log('Error removing barge');
     });
   }
 
